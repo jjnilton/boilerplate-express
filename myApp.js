@@ -25,6 +25,10 @@ app.get("/now", (req, res, next) => {
 }, (req, res) => {
   res.send({time: req.time});
 });
+const handleQueryStrings = (req, res) => {
+  res.json({name: `${req.query.first} ${req.query.last}`});
+}
+app.route("/name").get(handleQueryStrings).post(handleQueryStrings);
 
 
 

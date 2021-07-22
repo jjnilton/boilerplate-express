@@ -1,6 +1,9 @@
+const bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 console.log("Hello World");
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.get("/:word/echo", (req, res) => {
   res.json({echo: req.params.word});
 });
@@ -28,7 +31,10 @@ app.get("/now", (req, res, next) => {
 const handleQueryStrings = (req, res) => {
   res.json({name: `${req.query.first} ${req.query.last}`});
 }
-app.route("/name").get(handleQueryStrings).post(handleQueryStrings);
+const handlePostData = (req, res) => {
+  res.json({name: `${req.body.first} ${req.body.last}`});
+}
+app.route("/name").get(handleQueryStrings).post(handlePostData);
 
 
 

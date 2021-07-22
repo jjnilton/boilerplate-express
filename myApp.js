@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 console.log("Hello World");
+app.get("/:word/echo", (req, res) => {
+  res.json({echo: req.params.word});
+});
 app.use((req, res, next) => { 
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();

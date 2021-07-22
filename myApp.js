@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 console.log("Hello World");
 app.use((req, res, next) => { 
-	console.log(`${req.method} ${req.path} - ${req.ip}`);
- 	 next();
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  next();
 });
 app.get("/", function (req, res) {
 	res.sendFile(__dirname + "/views/index.html");
@@ -13,8 +13,14 @@ app.get("/json", (req, res) => {
   if (process.env.MESSAGE_STYLE === 'uppercase') {
   	res.send({message: "Hello json".toUpperCase()});
   } else {
-	res.send({message: "Hello json"});
+	  res.send({message: "Hello json"});
   }
+});
+app.get("/now", (req, res, next) => {
+  req.time = new Date().toString();
+  next();
+}, (req, res) => {
+  res.send({time: req.time});
 });
 
 
